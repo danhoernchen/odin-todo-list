@@ -55,13 +55,12 @@ function displayItems(todo) {
 }
 
 function displayTodos(project) {
-  project.todos.forEach((el) => console.log(el.title));
   project.todos.forEach((element) => {
-    console.log(element.title);
     currentProject.innerHTML += `<div id="${element.title}">${element.title}</div>`;
     displayItems(element);
-    console.log("after");
   });
 }
 displayProjects(projectsArr);
 displayTodos(projectsArr[0]);
+document.body.className =
+  "bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center";
