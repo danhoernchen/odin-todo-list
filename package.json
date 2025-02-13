@@ -1,0 +1,35 @@
+{
+  "name": "odin-todo-list",
+  "version": "1.0.0",
+  "description": "The Odin Project - Full Stack JavaScript - JavaScript - ToDo List",
+  "main": "index.js",
+  "keywords": [],
+  "author": "danhoernchen",
+  "scripts": {
+    "clean": "rm dist/bundle.js",
+    "build-dev": "webpack --mode development",
+    "build-prod": "webpack --mode production"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.0.6",
+    "date-fns": "^4.1.0",
+    "postcss": "^8.5.2",
+    "tailwindcss": "^4.0.6"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "postcss-loader": "^8.1.1",
+    "style-loader": "^4.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danhoernchen/odin-todo-list.git"
+  },
+  "homepage": "https://github.com/danhoernchen/odin-todo-list#readme"
+}
