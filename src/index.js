@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import { default as Project } from "./project";
 import { default as TodoList } from "./todoList";
 import "./styles.css";
@@ -31,32 +32,33 @@ function displayProjects(projects) {
 
 function displayItems(todo) {
   const todoContainer = document.getElementById(todo.title);
+  console.log(todo.checklist.length);
   if (todo.description) {
-    todoContainer.innerHTML += `<div class="description"><h5>Description</h5><p>${todo.description}</p></div>`;
+    todoContainer.innerHTML += `<div class="description"><h5 class="card-subtitle">Description</h5><p class="card-text">${todo.description}</p></div>`;
   }
   if (todo.dueDate != null) {
-    todoContainer.innerHTML += `<div class="due-date"><h5>Due Date</h5><p>${todo.dueDate}</div>`;
+    todoContainer.innerHTML += `<div class="due-date"><h5 class="card-subtitle">Due Date</h5><p class="card-text">${todo.dueDate}</div>`;
   }
   if (todo.priority) {
-    todoContainer.innerHTML += `<div class="priority"><p>${todo.priority}</p></div>`;
+    todoContainer.innerHTML += `<div class="priority"><h5 class="card-subtitle">Priority: </h5><p>${todo.priority}</p></div>`;
   }
   if (todo.notes) {
-    todoContainer.innerHTML += `<div class"notes"><h5>Notes</h5><p>${todo.notes}</p></div>`;
+    todoContainer.innerHTML += `<div class"notes"><h5 class="card-subtitle">Notes</h5><p class="card-text">${todo.notes}</p></div>`;
   }
   if (todo.checklist.length > 0) {
     const list = document.createElement("ul");
     todo.checklist.forEach((el) => {
       const li = document.createElement("li");
-      li.innerText = element.description;
-      list.appendChild(li);
+      li.innerText = el.description;
+      list.append(li);
     });
-    todoContainer.appendChild(list);
+    todoContainer.append(list);
   }
 }
 
 function displayTodos(project) {
   project.todos.forEach((element) => {
-    currentProject.innerHTML += `<div id="${element.title}">${element.title}</div>`;
+    currentProject.innerHTML += `<div class="card m-3 p-3 w-25"><div class="card-title" id="${element.title}"><h4>${element.title}</h4></div></div>`;
     displayItems(element);
   });
 }
