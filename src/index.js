@@ -1,11 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { default as Project } from "./project";
 import { default as TodoList } from "./todoList";
+import { default as addTodo } from "./addTodo";
 import "./styles.css";
 import { el } from "date-fns/locale";
-const projectsDiv = document.getElementById("projects");
+const projectsSelector = document.getElementById("project-selector");
 const projectsArr = [];
 const currentProject = document.getElementById("current-project");
+const addTodoBtn = document.getElementById("add-todo-btn");
 
 const initialTodo = new TodoList("TestToDo", "Really just a test");
 const secondTodo = new TodoList(
@@ -20,16 +22,33 @@ const secondTodo = new TodoList(
   ]
 );
 const initialProject = new Project("Test");
+const secondProject = new Project("Second");
 initialProject.addTodoList(initialTodo);
 initialProject.addTodoList(secondTodo);
 projectsArr.push(initialProject);
+projectsArr.push(secondProject);
 
+//display all projects in project array as options in a selector
 function displayProjects(projects) {
+  let index = 0;
   projects.forEach((element) => {
-    projectsDiv.innerHTML += `<div id=${element.name}>${element.name}</div>`;
+    projectsSelector.innerHTML += `<option value="${index}">${element.title}</option>`;
+    index++;
   });
 }
 
+//display the todos of a project as cards
+function displayTodos() {
+  currentProject.innerHTML = "";
+  const project = projectsArr[projectsSelector.value];
+  console.log(projectsArr[projectsSelector.id]);
+  project.todos.forEach((element) => {
+    currentProject.innerHTML += `<div class="card m-3 p-3 w-25"><div class="card-title" id="${element.title}"><h4>${element.title}</h4></div></div>`;
+    displayItems(element);
+  });
+}
+
+//display the items of the current todo
 function displayItems(todo) {
   const todoContainer = document.getElementById(todo.title);
   console.log(todo.checklist.length);
@@ -56,13 +75,8 @@ function displayItems(todo) {
   }
 }
 
-function displayTodos(project) {
-  project.todos.forEach((element) => {
-    currentProject.innerHTML += `<div class="card m-3 p-3 w-25"><div class="card-title" id="${element.title}"><h4>${element.title}</h4></div></div>`;
-    displayItems(element);
-  });
-}
 displayProjects(projectsArr);
-displayTodos(projectsArr[0]);
-document.body.className =
-  "bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center";
+displayTodos();
+
+addTodoBtn.addEventListener("click", addTodo);
+projectsSelector.addEventListener("change", displayTodos);
