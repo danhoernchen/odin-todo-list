@@ -5,6 +5,7 @@ const priorityInput = document.getElementById("todo-priority-input");
 const notesInput = document.getElementById("todo-notes-input");
 const currentProject = document.getElementById("project-selector");
 import { projectsArr } from "./index";
+import { displayTodos } from "./display";
 
 class ToDo {
   constructor(
@@ -13,7 +14,8 @@ class ToDo {
     dueDate = null,
     priority = "normal",
     notes = "",
-    checklist = []
+    checklist = [],
+    done = false
   ) {
     this.title = title;
     this.description = description;
@@ -21,35 +23,40 @@ class ToDo {
     this.priority = priority;
     this.notes = notes;
     this.checklist = checklist;
+    this.done = done;
   }
-  changeTitle(newTitle) {
+  changeTitle = (newTitle) => {
     this.title = newTitle;
-  }
-  changeDescription(newDescription) {
+  };
+  changeDescription = (newDescription) => {
     this.description = newDescription;
-  }
-  changeDueDate(newDate) {
+  };
+  changeDueDate = (newDate) => {
     this.dueDate = newDate;
-  }
-  changePriority(newPriority) {
+  };
+  changePriority = (newPriority) => {
     this.priority == newPriority;
-  }
-  changeNotes(newNotes) {
+  };
+  changeNotes = (newNotes) => {
     this.notes == newNotes;
-  }
-  addChecklistItem(description) {
+  };
+  addChecklistItem = (description) => {
     newItem = {
       description: description,
       done: false,
     };
     this.checklist.push(item);
-  }
-  deleteChecklistItem(index) {
+  };
+  deleteChecklistItem = (index) => {
     this.checklist.splice(index, 1);
-  }
-  markChecklistItem(index) {
+  };
+  markChecklistItem = (index) => {
     this.checklist[index].done = !this.checklist[index].done;
-  }
+  };
+  toggleDone = () => {
+    this.done = !this.done;
+    displayTodos();
+  };
 }
 
 function addTodo(e) {
@@ -61,8 +68,6 @@ function addTodo(e) {
     priorityInput.value,
     notesInput.value
   );
-  console.log(todo);
-  console.log(projectsArr[currentProject.value]);
   projectsArr[currentProject.value].addTodo(todo);
 }
 

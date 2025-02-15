@@ -1,0 +1,9 @@
+.high {
+    background-color: yellow;
+}
+.urgent {
+    background-color: red;
+}
+.done {
+    opacity: 0.3;
+}

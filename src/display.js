@@ -11,34 +11,50 @@ function displayProjects(projects) {
   });
 }
 
-//display the todos of currently selected project as cards
+//create cards to display todos of the currently selected project
 function displayTodos() {
-  currentProject.innerHTML = "";
-  const project = projectsArr[projectsSelector.value];
-  console.log(projectsArr[projectsSelector.id]);
-  let i = 0;
-  project.todos.forEach((element) => {
-    currentProject.innerHTML += `<div class="card m-3 p-3 w-25"><div class="card-title" id="todo-${i}"><h4>${element.title}</h4></div></div>`;
-    displayItems(element, i);
-    i++;
-  });
+  if (projectsArr.length > 0) {
+    currentProject.innerHTML = "";
+    const project = projectsArr[projectsSelector.value];
+    let i = 0;
+    project.todos.forEach((element) => {
+      const todo = document.createElement("div");
+      todo.classList.add("card", "m-3", "p-3", "w-25", element.priority);
+      todo.innerHTML += `<div id="todo-${i}"><h4 class="card-title">${element.title}</h4></div>`;
+      currentProject.append(todo);
+      displayItems(element, i);
+      i++;
+    });
+  }
 }
 
-//display the items of the current todo
+//display the items of the current todo and add delete and mark done buttons
 function displayItems(todo, index) {
   const todoContainer = document.getElementById(`todo-${index}`);
-  console.log(todo.checklist.length);
+  const project = projectsArr[projectsSelector.value];
   if (todo.description) {
-    todoContainer.innerHTML += `<div class="description"><h5 class="card-subtitle">Description</h5><p class="card-text">${todo.description}</p></div>`;
+    const description = document.createElement("div");
+    description.classList.add("description");
+    description.innerHTML = `<h5 class="card-subtitle text-info">Description</h5><p class="card-text">${todo.description}</p>`;
+    todoContainer.append(description);
   }
   if (todo.dueDate != null) {
-    todoContainer.innerHTML += `<div class="due-date"><h5 class="card-subtitle">Due Date</h5><p class="card-text">${todo.dueDate}</div>`;
+    const dueDate = document.createElement("div");
+    dueDate.classList.add("due-date");
+    dueDate.innerHTML = `<h5 class="card-subtitle text-info">Due Date</h5><p class="card-text">${todo.dueDate}</p>`;
+    todoContainer.append(dueDate);
   }
   if (todo.priority) {
-    todoContainer.innerHTML += `<div class="priority"><h5 class="card-subtitle">Priority: </h5><p>${todo.priority}</p></div>`;
+    const priority = document.createElement("div");
+    priority.classList.add("priority");
+    priority.innerHTML = `<h5 class="card-subtitle text-info">Priority: </h5><p>${todo.priority}</p>`;
+    todoContainer.append(priority);
   }
   if (todo.notes) {
-    todoContainer.innerHTML += `<div class"notes"><h5 class="card-subtitle">Notes</h5><p class="card-text">${todo.notes}</p></div>`;
+    const notes = document.createElement("div");
+    notes.classList.add("notes");
+    notes.innerHTML = `<h5 class="card-subtitle text-info">Notes</h5><p class="card-text">${todo.notes}</p>`;
+    todoContainer.append(notes);
   }
   if (todo.checklist.length > 0) {
     const list = document.createElement("ul");
@@ -49,6 +65,20 @@ function displayItems(todo, index) {
     });
     todoContainer.append(list);
   }
+  if (todo.done) {
+    todoContainer.classList.add("done");
+  }
+  const deleteBtn = document.createElement("button");
+  deleteBtn.id = index;
+  deleteBtn.innerText = "Delete ToDo";
+  deleteBtn.classList.add("btn", "btn-danger");
+  deleteBtn.addEventListener("click", project.deleteTodo);
+  todoContainer.append(deleteBtn);
+  const doneBtn = document.createElement("button");
+  doneBtn.classList.add("btn", "btn-secondary");
+  doneBtn.innerText = "Mark Done";
+  doneBtn.addEventListener("click", todo.toggleDone);
+  todoContainer.append(doneBtn);
 }
 
 export { displayProjects, displayItems, displayTodos };
