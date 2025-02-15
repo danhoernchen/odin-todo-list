@@ -3,7 +3,7 @@ class Project {
     this.title = title;
     this.todos = todos;
   }
-  addTodoList(todos) {
+  addTodo(todos) {
     this.todos.push(todos);
   }
   deleteTodoList(index) {

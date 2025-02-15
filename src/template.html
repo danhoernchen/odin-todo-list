@@ -11,7 +11,12 @@
       <div class="row">
         <div class="col-3">
           <div id="projects">
-            <select name="project-selector" id="project-selector"></select>
+            <label for="project-selector">Select Project</label>
+            <select
+              class="form-control"
+              name="project-selector"
+              id="project-selector"
+            ></select>
           </div>
           <div class="container">
             <form class="new-todo-form">
@@ -54,7 +59,7 @@
                 id="todo-notes-input"
                 class="form-control"
               ></textarea>
-              <button id="add-todo-btn" class="btn btn-primary">
+              <button id="add-todo-btn" class="btn btn-primary p-2 my-3">
                 Add ToDo
               </button>
             </form>
