@@ -6,17 +6,29 @@ class Project {
     this.title = title;
     this.todos = todos;
   }
-  addTodo = (todos) => {
-    this.todos.push(todos);
+  addTodo = (todo) => {
+    this.todos.push(todo);
     displayTodos();
-    localStorage.setItem("projectsArr", JSON.stringify(projectsArr));
+    saveProjects(projectsArr);
   };
   deleteTodo = (e) => {
     const index = Number(e.target.id);
     this.todos.splice(index, 1);
     displayTodos();
-    localStorage.setItem("projectsArr", JSON.stringify(projectsArr));
+    saveProjects(projectsArr);
   };
 }
 
+function saveProjects(array) {
+  // const todos = [];
+  // array.forEach((element) => {
+  //   element.todos.forEach((el) => {
+  //     todos.push(JSON.stringify(el));
+  //     console.log(todos);
+  //   });
+  // });
+  localStorage.setItem("projectsArr", JSON.stringify(array));
+}
+
 export default Project;
+export { saveProjects };

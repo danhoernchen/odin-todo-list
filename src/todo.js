@@ -6,6 +6,7 @@ const notesInput = document.getElementById("todo-notes-input");
 const currentProject = document.getElementById("project-selector");
 import { projectsArr } from "./index";
 import { displayTodos } from "./display";
+import { saveProjects } from "./project";
 
 class ToDo {
   constructor(
@@ -27,18 +28,23 @@ class ToDo {
   }
   changeTitle = (newTitle) => {
     this.title = newTitle;
+    saveProjects(projectsArr);
   };
   changeDescription = (newDescription) => {
     this.description = newDescription;
+    saveProjects(projectsArr);
   };
   changeDueDate = (newDate) => {
     this.dueDate = newDate;
+    saveProjects(projectsArr);
   };
   changePriority = (newPriority) => {
     this.priority == newPriority;
+    saveProjects(projectsArr);
   };
   changeNotes = (newNotes) => {
     this.notes == newNotes;
+    saveProjects(projectsArr);
   };
   addChecklistItem = (description) => {
     newItem = {
@@ -46,16 +52,21 @@ class ToDo {
       done: false,
     };
     this.checklist.push(item);
+    saveProjects(projectsArr);
   };
   deleteChecklistItem = (index) => {
     this.checklist.splice(index, 1);
+    saveProjects(projectsArr);
   };
   markChecklistItem = (index) => {
     this.checklist[index].done = !this.checklist[index].done;
+    saveProjects(projectsArr);
   };
   toggleDone = () => {
+    console.log("done");
     this.done = !this.done;
     displayTodos();
+    saveProjects(projectsArr);
   };
 }
 

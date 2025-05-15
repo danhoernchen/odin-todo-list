@@ -5,11 +5,13 @@ import "./styles.css";
 import { el } from "date-fns/locale";
 import { displayItems, displayProjects, displayTodos } from "./display";
 import { parseJSON } from "date-fns";
-const projectsArr = JSON.parse(localStorage.getItem("projectsArr")) || [];
+const savedProjectsArr = JSON.parse(localStorage.getItem("projectsArr"));
+const projectsArr = [];
 const addTodoBtn = document.getElementById("add-todo-btn");
 const projectsSelector = document.getElementById("project-selector");
 
-if (projectsArr.length < 1) {
+if (savedProjectsArr.length < 1) {
+  console.log(projectsArr.lenth);
   const initialTodo = new ToDo("TestToDo", "Really just a test");
   const secondTodo = new ToDo(
     "2nd",
@@ -29,11 +31,23 @@ if (projectsArr.length < 1) {
   projectsArr.push(initialProject);
   projectsArr.push(secondProject);
 } else {
-  for (let i = 0; i < projectsArr.length; i++) {
-    const project = new Project(projectsArr[i].title, projectsArr[i].todos);
-    console.log(project);
-    projectsArr[i] = project;
-    console.log(projectsArr);
+  for (let i = 0; i < savedProjectsArr.length; i++) {
+    const project = new Project(savedProjectsArr[i].title);
+    for (const todo of savedProjectsArr[i].todos) {
+      console.log(todo);
+      project.addTodo(
+        new ToDo(
+          todo.title,
+          todo.description,
+          todo.dueDate,
+          todo.priority,
+          todo.notes,
+          todo.checklist,
+          todo.done
+        )
+      );
+    }
+    projectsArr.push(project);
   }
 }
 displayProjects(projectsArr);

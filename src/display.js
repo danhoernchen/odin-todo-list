@@ -19,7 +19,13 @@ function displayTodos() {
     let i = 0;
     project.todos.forEach((element) => {
       const todo = document.createElement("div");
-      todo.classList.add("card", "m-3", "p-3", "w-25", element.priority);
+      todo.classList.add(
+        "card",
+        "m-3",
+        "p-3",
+        "w-25",
+        element.priority.toLowerCase()
+      );
       todo.innerHTML += `<div id="todo-${i}"><h4 class="card-title">${element.title}</h4></div>`;
       currentProject.append(todo);
       displayItems(element, i);
